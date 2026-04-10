@@ -1,1 +1,3 @@
-Versione iniziale della configurazione
+Versione iniziale della configurazione.
+Aggiunto il parametro di log: DEBUG.
+
