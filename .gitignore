@@ -1,0 +1,69 @@
+ ========================================
+# File e cartelle generiche
+# ========================================
+*.log
+*.tmp
+*.swp
+*.bak
+*.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.DS_STORE
+.DS_Store
+# Python
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+.python-version
+
+# IDE
+*.swo
+
+# Uploads directory - keep directory, ignore contents
+uploads/*
+!uploads/.gitkeep
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Logs
+.log/
+logs/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/

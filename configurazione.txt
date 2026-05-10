@@ -1,5 +1,0 @@
-Versione iniziale della configurazione.
-Aggiunto il parametro di log: DEBUG.
-
-Aggiunta nuova linea
-
