@@ -1,0 +1,59 @@
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: <nickname_github>
+---
+# 2. Secret
+# I partecipanti devono aggiungere nuove chiavi sotto 'data' o 'stringData'
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  namespace: demo-ambiente
+type: Opaque
+stringData:
+  PA_NAME: "<PROPRIO_NOME>"
+  PA_ROLE: "<PROPRIO RUOLO>"
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-demo
+  namespace: <nickname_github>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-demo
+  template:
+    metadata:
+      labels:
+        app: devops-demo
+    spec:
+      containers:
+        - name: devops-demo
+          image: massimocallisto/devops-demo:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          # Iniettiamo il Secret come variabili d'ambiente
+          envFrom:
+            - secretRef:
+                name: app-secrets
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-demo
+  namespace: <nickname_github>
+spec:
+  type: ClusterIP
+  selector:
+    app: devops-demo
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000

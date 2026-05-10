@@ -1,0 +1,62 @@
+# 1. Namespace (Personalizzabile dai partecipanti)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo-ambiente
+---
+# 2. Secret (Esercizio per i partecipanti)
+# I partecipanti devono aggiungere nuove chiavi sotto 'data' o 'stringData'
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+  namespace: demo-ambiente
+type: Opaque
+stringData:
+  PA_NAME: "Luigi Verdi"
+  PA_ROLE: "project manager"
+  # ESERCIZIO: Aggiungi qui una nuova variabile, es:
+  # CURSO_TOKEN: "devops-2024"
+---
+# 3. Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-demo
+  namespace: demo-ambiente
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-demo
+  template:
+    metadata:
+      labels:
+        app: devops-demo
+    spec:
+      # imagePullSecrets RIMOSSO: DockerHub è pubblico
+      containers:
+        - name: devops-demo
+          image: massimocallisto/devops-demo:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          # Iniettiamo il Secret come variabili d'ambiente
+          envFrom:
+            - secretRef:
+                name: app-secrets
+---
+# 4. Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-demo-service
+  namespace: demo-ambiente
+spec:
+  type: ClusterIP
+  selector:
+    app: devops-demo
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8000

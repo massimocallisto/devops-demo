@@ -99,3 +99,10 @@ Call `/envs` to confirm the variables are available:
 ```bash
 curl http://localhost:8000/envs
 ```
+
+Note: to run a multi-plafrom architecture use:
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t username/appname:latest --push .
+```
+
